@@ -1,0 +1,29 @@
+<%= bootstrap_form_with(model: @category, local: true) do |form| %>
+    <% if category.errors.any? %>
+      <ul class="alert alert-danger list-unstyled">
+        <% category.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <div>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.primary %>
+  </div>
+<% end %>
+
+
+
+
+
+
+
+
+

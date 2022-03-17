@@ -1,0 +1,58 @@
+<%%= bootstrap_form_with(model: @<%= singular_table_name %>, local: true) do |form| %>
+    <%% if <%= singular_table_name %>.errors.any? %>
+      <ul class="alert alert-danger list-unstyled">
+        <%% <%= singular_table_name %>.errors.each do |error| %>
+          <li><%%= error.full_message %></li>
+        <%% end %>
+      </ul>
+    <%% end %>
+  <% attributes.each do |attribute| -%>
+  <div>
+<% if attribute.password_digest? -%>
+    <%%= form.label :password, style: "display: block" %>
+    <%%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%%= form.label :password_confirmation, style: "display: block" %>
+    <%%= form.password_field :password_confirmation %>
+<% elsif attribute.attachments? -%>
+    <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
+<% else -%>
+    <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %> %>
+<% end -%>
+  </div>
+
+<% end -%>
+  <div>
+    <%%= form.submit %>
+  </div>
+<%% end %>
+
+
+
+
+
+
+
+
+
+<%
+=begin %> 
+<% attributes.each do |attribute| -%>
+  <% if attribute.password_digest? -%>
+      <%%= form.label :password, style: "display: block" %>
+      <%%= form.password_field :password %>
+      <%%= form.password_field :password_confirmation %>
+  <% elsif attribute.attachments? -%>
+      <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
+  <% else -%>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %> %>
+  <% end -%>
+  <% end -%>
+      <%%= form.primary %>
+  
+<%
+=end %>

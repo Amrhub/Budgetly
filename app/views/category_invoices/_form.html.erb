@@ -1,0 +1,29 @@
+<%= bootstrap_form_with(model: @category_invoice, local: true) do |form| %>
+    <% if category_invoice.errors.any? %>
+      <ul class="alert alert-danger list-unstyled">
+        <% category_invoice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <div>
+    <%= form.text_field :category_id %>
+  </div>
+
+  <div>
+    <%= form.text_field :invoice_id %>
+  </div>
+
+  <div>
+    <%= form.primary %>
+  </div>
+<% end %>
+
+
+
+
+
+
+
+
+

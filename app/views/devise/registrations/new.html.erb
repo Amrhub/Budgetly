@@ -1,21 +1,19 @@
-<h2>Sign up</h2>
-
 <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="image-upload d-flex mb-3">
-   <label for="file-input" class="d-flex align-items-center">
-     <i class="bi bi-person-circle text-muted" style="font-size: 50px"></i>
-    <span class="ms-2 text-muted">Upload picture</span>
+  <div class="image-upload d-flex mb-3 border-bottom border-2">
+   <label for="file-input" class="d-flex align-items-center w-100" id="image-upload">
+      <i class="bi bi-person-circle text-muted" style="font-size: 50px"></i>
+      <span class="ms-4 text-muted image-upload-span">Upload picture</span>
    </label>
-   <%= f.file_field :avatar, id:"file-input", skip_label: true%>
+   <%= f.file_field :avatar, id:"file-input", class: 'd-none', skip_label: true %>
   </div>
   <%= f.text_field :name %>
   <%= f.email_field :email, autofocus: true, autocomplete: "email"%>
   <%= f.password_field :password, autocomplete: "new-password", help: "Must be at least #{@minimum_password_length} characters long" if @minimum_password_length%>
   <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
 
-  <%= f.primary "Sign up" %>
+  <div class="mb-3 col-xs-12 col-md-1"><%= f.primary "Sign up" , extra_class: 'w-100'%></div>
 <% end %>
 
 <%= render "devise/shared/links" %>

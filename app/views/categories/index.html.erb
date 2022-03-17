@@ -1,14 +1,15 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Categories</h1>
-
-<div id="categories">
-  <% @categories.each do |category| %>
-    <%= render category %>
-    <p>
-      <%= link_to "Show this category", category %>
-    </p>
-  <% end %>
+<div class="d-flex flex-column">
+  <h1 class="mb-3 text-center">Categories</h1>
+  
+  <div id="categories" class="d-grid gap-3" style="padding-bottom: 75px;">
+    <% @categories.each do |category| %>
+      <%= link_to category_invoices_path(category), class: 'text-decoration-none text-reset' do %>
+        <%= render category %>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <div class="bg-success position-fixed bottom-0 start-0 w-100 d-flex align-items-center justify-content-center" style="height: 75px;">
+    <%= link_to "New category", new_category_path, class: 'btn btn-outline-success text-white w-75 border' %>
+  </div>
 </div>
-
-<%= link_to "New category", new_category_path %>

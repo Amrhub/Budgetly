@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: %i[ show edit update destroy ]
+  before_action :set_category
 
   # GET /invoices or /invoices.json
   def index
@@ -61,6 +62,10 @@ class InvoicesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_invoice
       @invoice = Invoice.find(params[:id])
+    end
+
+    def set_category
+      @category = Category.find(params[:category_id])
     end
 
     # Only allow a list of trusted parameters through.

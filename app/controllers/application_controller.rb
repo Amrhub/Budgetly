@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery unless: -> { request.format.json? }
   before_action :update_allowed_parameters, if: :devise_controller?
   add_flash_types :danger, :info, :warning, :success
+
+  def request_path
+    request.path
+  end
 
   protected
 

@@ -1,5 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Invoices</h1>
 
 <div id="invoices">
@@ -10,5 +8,4 @@
     </p>
   <% end %>
 </div>
-
-<%= link_to "New invoice", new_invoice_path %>
+<%= link_to "New invoice", new_category_invoice_path(@category) %>

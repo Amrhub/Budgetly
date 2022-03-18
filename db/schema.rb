@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_17_145348) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_18_081717) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,13 +47,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_17_145348) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
-  create_table "categories_invoices", id: false, force: :cascade do |t|
-    t.integer "category_id", null: false
-    t.integer "invoice_id", null: false
-    t.index ["category_id"], name: "index_categories_invoices_on_category_id"
-    t.index ["invoice_id"], name: "index_categories_invoices_on_invoice_id"
-  end
-
   create_table "invoices", force: :cascade do |t|
     t.string "name"
     t.decimal "amount"
@@ -61,6 +54,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_17_145348) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_invoices_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.integer "invoice_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_payments_on_category_id"
+    t.index ["invoice_id"], name: "index_payments_on_invoice_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,4 +83,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_17_145348) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "users"
   add_foreign_key "invoices", "users"
+  add_foreign_key "payments", "categories"
+  add_foreign_key "payments", "invoices"
 end

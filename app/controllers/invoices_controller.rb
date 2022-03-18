@@ -1,10 +1,10 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: %i[ show edit update destroy ]
-  before_action :set_category
-
+  before_action :authenticate_user!
   # GET /invoices or /invoices.json
   def index
-    @invoices = Invoice.all
+    @category = current_user.categories.find_by(name: params[:category_name])
+    @invoices = @category.invoices.order(created_at: :desc)
   end
 
   # GET /invoices/1 or /invoices/1.json
@@ -14,6 +14,8 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     @invoice = Invoice.new
+    @payment = Payment.new
+    @categories = current_user.categories
   end
 
   # GET /invoices/1/edit
@@ -22,11 +24,13 @@ class InvoicesController < ApplicationController
 
   # POST /invoices or /invoices.json
   def create
-    @invoice = Invoice.new(invoice_params)
+    @invoice = Invoice.new(name: invoice_params[:name], amount: invoice_params[:amount], user: current_user)
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to invoice_url(@invoice), notice: "Invoice was successfully created." }
+        @category = Category.find(invoice_params[:category_id])
+        @invoice.categories << @category
+        format.html { redirect_to category_invoices_url(@category.name), notice: "Invoice was successfully created." }
         format.json { render :show, status: :created, location: @invoice }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +42,7 @@ class InvoicesController < ApplicationController
   # PATCH/PUT /invoices/1 or /invoices/1.json
   def update
     respond_to do |format|
-      if @invoice.update(invoice_params)
+      if @invoice.update(name: invoice_params[:name], amount: invoice_params[:amount], user: current_user)
         format.html { redirect_to invoice_url(@invoice), notice: "Invoice was successfully updated." }
         format.json { render :show, status: :ok, location: @invoice }
       else
@@ -64,12 +68,9 @@ class InvoicesController < ApplicationController
       @invoice = Invoice.find(params[:id])
     end
 
-    def set_category
-      @category = Category.find(params[:category_id])
-    end
-
     # Only allow a list of trusted parameters through.
     def invoice_params
-      params.require(:invoice).permit(:name, :amount, :user_id)
+      params.require(:invoice).permit(:name, :amount, :category_id)
     end
+
 end

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <div class="navbar-brand">
-      <%= "Hello world" unless request.path == "/categories" %>
+      <%= link_to "<i class='bi bi-chevron-left'></i>".html_safe, get_navigation_path , class: 'navbar-brand' if requires_navigation? %>
       <% if user_signed_in? %>
         <%= link_to edit_user_registration_path(current_user), class: 'navbar-brand' do %>
           <%= render "shared/user_avatar" %>
@@ -18,11 +18,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav gap-2 w-100">
-
-        <li class="nav-item">
-          <%= link_to 'text', root_path, class: 'nav-link' %>
-        </li>
         <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to 'Create a new Category', new_category_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Create a new Invoice', new_invoice_path, class: 'nav-link' %>
+          </li>
           <li class="nav-item ms-md-auto">
             <%= button_to "Log out", destroy_user_session_path, method: :delete, class: 'nav-link bg-transparent border-0' %>
           </li>

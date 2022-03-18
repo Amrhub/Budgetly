@@ -3,7 +3,7 @@
   
   <div id="categories" class="d-grid gap-3" style="padding-bottom: 75px;">
     <% @categories.each do |category| %>
-      <%= link_to category_invoices_path(category), class: 'text-decoration-none text-reset' do %>
+      <%= link_to category_invoices_path(category.name), class: 'text-decoration-none text-reset' do %>
         <%= render category %>
       <% end %>
     <% end %>

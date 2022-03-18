@@ -1,17 +1,16 @@
-<div id="<%= dom_id invoice %>">
+<div id="<%= dom_id invoice %>" class="border border-2 p-3 rounded rounded-3">
   <p>
-    <strong>Name:</strong>
+    <strong>Category name:</strong>
+    <%= @category.name %>
+  </p>
+
+  <p>
+    <strong>Invoice Name:</strong>
     <%= invoice.name %>
   </p>
 
   <p>
-    <strong>Amount:</strong>
+    <strong>Invoice Amount:</strong>
     <%= invoice.amount %>
   </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= invoice.user_id %>
-  </p>
-
 </div>

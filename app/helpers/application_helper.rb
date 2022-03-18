@@ -6,4 +6,16 @@ module ApplicationHelper
   def brand_name
     "Budgetly"
   end
+
+  def requires_navigation?
+    return false if request.path == "/categories"
+    return false if request.path == "/"
+    return false if request.path.include?('users')
+    true
+  end
+
+  def get_navigation_path
+    return :back if request.path == "/invoices/new"
+    categories_path
+  end
 end

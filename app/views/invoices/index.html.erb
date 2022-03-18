@@ -1,11 +1,20 @@
-<h1>Invoices</h1>
+<h1 class="mb-5 text-center">Invoices</h1>
 
-<div id="invoices">
-  <% @invoices.each do |invoice| %>
-    <%= render invoice %>
-    <p>
-      <%= link_to "Show this invoice", invoice %>
-    </p>
-  <% end %>
+<p>
+<strong>Total payments for "<%= @category.name %>": </strong>
+<%= category_payments(@category) %>
+</p>
+
+<% if @invoices.empty? %>
+  <p class="text-center text-danger h4">No invoices found</p>
+<% else %>
+  <div id="invoices" style="padding-bottom: 75px;" class="d-grid gap-3">
+    <% @invoices.each do |invoice| %>
+      <%= render invoice %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="bg-success position-fixed bottom-0 start-0 w-100 d-flex align-items-center justify-content-center" style="height: 75px;">
+  <%= link_to "New invoice", new_invoice_path, class: 'btn btn-outline-success text-white w-75 border'  %>
 </div>
-<%= link_to "New invoice", new_category_invoice_path(@category) %>

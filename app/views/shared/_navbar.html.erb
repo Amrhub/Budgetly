@@ -20,6 +20,9 @@
       <ul class="navbar-nav gap-2 w-100">
         <% if user_signed_in? %>
           <li class="nav-item">
+            <%= link_to 'Home', categories_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
             <%= link_to 'Create a new Category', new_category_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">

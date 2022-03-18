@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :invoices, dependent: :destroy
   has_many :categories, dependent: :destroy
-  has_one_attached :avatar
+  has_one_attached :avatar, dependent: :destroy
 
   validates :name, presence: true
 end

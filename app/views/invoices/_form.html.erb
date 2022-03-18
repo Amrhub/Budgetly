@@ -1,33 +1,17 @@
 <%= bootstrap_form_with(model: @invoice, local: true) do |form| %>
-    <% if invoice.errors.any? %>
-        <ul class="alert alert-danger list-unstyled"  role="alert">
-          <% invoice.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-    <% end %>
-  <div>
-    <%= form.text_field :name %>
-  </div>
+  <% if invoice.errors.any? %>
+      <ul class="alert alert-danger list-unstyled"  role="alert">
+        <% invoice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+  <% end %>
 
-  <div>
-    <%= form.text_field :amount %>
-  </div>
+  <%= form.text_field :name, label: 'Invoice name' %>
+  <%= form.text_field :amount , label: 'Invoice amount', prepend: '$'%>
+  <%= form.select :category_id, options_from_collection_for_select(@categories, :id, :name), label: "Choose category" %>
 
-  <div>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.primary %>
+  <div class="col-12 col-md-3 mb-3">
+    <%= form.primary "#{action_name.capitalize} #{controller_name.capitalize.singularize}", extra_class: 'w-100'%>
   </div>
 <% end %>
-
-
-
-
-
-
-
-
-

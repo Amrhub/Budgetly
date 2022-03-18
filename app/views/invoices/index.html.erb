@@ -1,14 +1,27 @@
-<p style="color: green"><%= notice %></p>
+<h1 class="mb-5 text-center">Invoices</h1>
 
-<h1>Invoices</h1>
+<p>
+<strong>Total payments for "<%= @category.name %>": </strong>
+<%= category_payments(@category) %>
+</p>
 
-<div id="invoices">
-  <% @invoices.each do |invoice| %>
-    <%= render invoice %>
-    <p>
-      <%= link_to "Show this invoice", invoice %>
-    </p>
-  <% end %>
+<% if @invoices.empty? %>
+  <p class="text-center text-danger h4">No invoices found</p>
+<% else %>
+  <div id="invoices" style="padding-bottom: 75px;" class="d-grid gap-3">
+    <% @invoices.each do |invoice| %>
+      <%= render invoice %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="bg-success position-fixed bottom-0 start-0 w-100 d-flex align-items-center justify-content-center d-md-none" style="height: 75px;">
+  <%= link_to "New invoice", new_invoice_path, class: 'btn btn-outline-success text-white w-75 border'  %>
 </div>
 
-<%= link_to "New invoice", new_invoice_path %>
+<div class="position-relative pt-2">
+<%= link_to "<i class='bi bi-plus'></i>".html_safe, new_invoice_path, 
+class: 'btn btn-success text-white rounded-circle position-absolute bottom-0 end-0 d-none
+d-md-flex align-items-center justify-content-center fs-1', style: 'width: 75px; aspect-ratio: 1',
+title: 'New Invoice'%>
+</div>

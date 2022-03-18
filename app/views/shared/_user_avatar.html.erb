@@ -1,0 +1,2 @@
+<%= image_tag resize_avatar, class: 'rounded-circle' if current_user.avatar.attached? %>
+<%= "<i class='bi bi-person-circle'></i>".html_safe unless current_user.avatar.attached? %>

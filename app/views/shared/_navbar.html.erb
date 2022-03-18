@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <div class="navbar-brand">
+      <%= link_to "<i class='bi bi-chevron-left'></i>".html_safe, get_navigation_path , class: 'navbar-brand' if requires_navigation? %>
+      <% if user_signed_in? %>
+        <%= link_to edit_user_registration_path(current_user), class: 'navbar-brand' do %>
+          <%= render "shared/user_avatar" %>
+          <span class="ms-1 ms-md-3">
+            <%= current_user.name %>
+          </span>
+        <% end %>
+      <% else %>
+          <%= link_to brand_name, root_path, class: 'navbar-brand' %>
+      <% end %>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav gap-2 w-100">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to 'Home', categories_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Create a new Category', new_category_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Create a new Invoice', new_invoice_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item ms-md-auto">
+            <%= button_to "Log out", destroy_user_session_path, method: :delete, class: 'nav-link bg-transparent border-0' %>
+          </li>
+        <% else %>
+          <li class="nav-item ms-md-auto">
+            <%= link_to "Sign in", new_user_session_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign up", new_user_registration_path, class: 'nav-link' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

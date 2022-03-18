@@ -1,21 +1,27 @@
 <%= bootstrap_form_with(model: @category, local: true) do |form| %>
-    <% if category.errors.any? %>
-      <ul class="alert alert-danger list-unstyled">
-        <% category.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <% if category.errors.any? %>
+    <ul class="alert alert-danger list-unstyled">
+      <% category.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
     <% end %>
-    <div>
-    <%= form.text_field :name %>
-  </div>
 
-  <div>
-    <%= form.text_field :user_id %>
+  <div class="image-upload d-flex mb-3 border-bottom border-2">
+   <label for="file-input" class="d-flex align-items-center w-100 pb-3" id="image-upload">
+      <% if @category.icon.attached? %>
+        <%= image_tag @category.icon.variant(resize_to_limit: [100,100]), class: 'rounded-circle' %>
+      <% else %>
+        <i class="bi bi-person-circle text-muted" style="font-size: 50px"></i>
+      <% end %>
+        <span class="ms-4 text-muted image-upload-span">Upload Category Icon</span>
+   </label>
+   <%= form.file_field :icon, id:"file-input", class: 'd-none', skip_label: true %>
   </div>
-
-  <div>
-    <%= form.primary %>
+  <%= form.text_field :name, label: 'Category name' %>
+  
+  <div class="mb-3 col-12 col-md-3">
+    <%= form.primary "#{action_name} #{controller_name.singularize}" , extra_class: 'w-100 text-capitalize'%>
   </div>
 <% end %>
 
